@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PoemMaker from './poemMaker'
 
 function App() {
+
+  const [count, setCount] = useState(2);
+  const poemMaker = new PoemMaker(5);
+  const poem = poemMaker.makePoem(count);
+  console.log(poem);
+  const items = [];
+  for (const [index, value] of poem.entries()) {
+    items.push(<p key={index}>{value}</p>)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          صانع الأشعار
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <input
+        className="App-input"
+          name="عدد الجمل"
+          type="number"
+          value={count}
+          onChange={(event) => { setCount(event.target.value) }}
+        />
+        <h2>
+          {items}
+        </h2>
       </header>
     </div>
   );
